@@ -1,5 +1,6 @@
 .vscode/
 /node_modules/
+/mocks/test-data.tsv
 /build/
 /lib/
 /dist/
