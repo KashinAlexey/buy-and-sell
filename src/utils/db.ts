@@ -1,7 +1,9 @@
 export const getURI = (
-  username: string,
-  password: string,
+  //username: string,
+  //password: string,
   host: string,
   port: number,
   databaseName: string,
-): string => `mongodb://${username}:${password}@${host}:${port}/${databaseName}`;
+): string => `mongodb://${host}:${port}/${databaseName}`;
+
+// `mongodb://${username}:${password}@${host}:${port}/${databaseName}`
