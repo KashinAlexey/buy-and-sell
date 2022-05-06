@@ -10,6 +10,9 @@ import {UserServiceInterface} from './modules/user/user-service.interface.js';
 import UserService from './modules/user/user.service.js';
 import {UserEntity, UserModel} from './modules/user/user.entity.js';
 import { ModelType } from '@typegoose/typegoose/lib/types.js';
+import {CategoryEntity, CategoryModel} from './modules/category/category.entity.js';
+import CategoryService from './modules/category/category.service.js';
+import {CategoryServiceInterface} from './modules/category/category-service.interface.js';
 import Application from './app/application.js';
 
 const applicationContainer = new Container();
@@ -19,6 +22,8 @@ applicationContainer.bind<ConfigInterface>(Component.ConfigInterface).to(ConfigS
 applicationContainer.bind<DatabaseInterface>(Component.DatabaseInterface).to(DatabaseService).inSingletonScope();
 applicationContainer.bind<UserServiceInterface>(Component.UserServiceInterface).to(UserService);
 applicationContainer.bind<ModelType<UserEntity>>(Component.UserModel).toConstantValue(UserModel);
+applicationContainer.bind<CategoryServiceInterface>(Component.CategoryServiceInterface).to(CategoryService);
+applicationContainer.bind<ModelType<CategoryEntity>>(Component.CategoryModel).toConstantValue(CategoryModel);
 
 const application = applicationContainer.get<Application>(Component.Application);
 await application.init();
