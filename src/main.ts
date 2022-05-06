@@ -9,7 +9,7 @@ import DatabaseService from './common/database-client/database.service.js';
 import {UserServiceInterface} from './modules/user/user-service.interface.js';
 import UserService from './modules/user/user.service.js';
 import {UserEntity, UserModel} from './modules/user/user.entity.js';
-import { ModelType } from '@typegoose/typegoose/lib/types';
+import { ModelType } from '@typegoose/typegoose/lib/types.js';
 import Application from './app/application.js';
 
 const applicationContainer = new Container();
