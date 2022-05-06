@@ -13,6 +13,9 @@ import { ModelType } from '@typegoose/typegoose/lib/types.js';
 import {CategoryEntity, CategoryModel} from './modules/category/category.entity.js';
 import CategoryService from './modules/category/category.service.js';
 import {CategoryServiceInterface} from './modules/category/category-service.interface.js';
+import OfferService from './modules/offer/offer.service.js';
+import {OfferServiceInterface} from './modules/offer/offer-service.interface.js';
+import {OfferEntity, OfferModel} from './modules/offer/offer.entity.js';
 import Application from './app/application.js';
 
 const applicationContainer = new Container();
@@ -24,6 +27,8 @@ applicationContainer.bind<UserServiceInterface>(Component.UserServiceInterface).
 applicationContainer.bind<ModelType<UserEntity>>(Component.UserModel).toConstantValue(UserModel);
 applicationContainer.bind<CategoryServiceInterface>(Component.CategoryServiceInterface).to(CategoryService);
 applicationContainer.bind<ModelType<CategoryEntity>>(Component.CategoryModel).toConstantValue(CategoryModel);
+applicationContainer.bind<OfferServiceInterface>(Component.OfferServiceInterface).to(OfferService);
+applicationContainer.bind<ModelType<OfferEntity>>(Component.OfferModel).toConstantValue(OfferModel);
 
 const application = applicationContainer.get<Application>(Component.Application);
 await application.init();
