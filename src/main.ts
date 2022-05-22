@@ -19,6 +19,8 @@ import {OfferEntity, OfferModel} from './modules/offer/offer.entity.js';
 import Application from './app/application.js';
 import {ControllerInterface} from './common/controller/controller.interface.js';
 import CategoryController from './modules/category/category.controller.js';
+import ExceptionFilter from './common/errors/exception-filter.js';
+import {ExceptionFilterInterface} from './common/errors/exception-filter.interface.js';
 
 const applicationContainer = new Container();
 applicationContainer.bind<Application>(Component.Application).to(Application).inSingletonScope();
@@ -32,6 +34,7 @@ applicationContainer.bind<ModelType<CategoryEntity>>(Component.CategoryModel).to
 applicationContainer.bind<OfferServiceInterface>(Component.OfferServiceInterface).to(OfferService);
 applicationContainer.bind<ModelType<OfferEntity>>(Component.OfferModel).toConstantValue(OfferModel);
 applicationContainer.bind<ControllerInterface>(Component.CategoryController).to(CategoryController).inSingletonScope();
+applicationContainer.bind<ExceptionFilterInterface>(Component.ExceptionFilterInterface).to(ExceptionFilter).inSingletonScope();
 
 const application = applicationContainer.get<Application>(Component.Application);
 await application.init();

@@ -7,6 +7,7 @@ import {DatabaseInterface} from '../common/database-client/database.interface.js
 import {Component} from '../types/component.types.js';
 import express, {Express} from 'express';
 import {ControllerInterface} from '../common/controller/controller.interface.js';
+import {ExceptionFilterInterface} from '../common/errors/exception-filter.interface.js';
 
 @injectable()
 export default class Application {
@@ -16,7 +17,8 @@ export default class Application {
     @inject(Component.LoggerInterface) private logger: LoggerInterface,
     @inject(Component.ConfigInterface) private config: ConfigInterface,
     @inject(Component.DatabaseInterface) private databaseClient: DatabaseInterface,
-    @inject(Component.CategoryController) private categoryController: ControllerInterface
+    @inject(Component.CategoryController) private categoryController: ControllerInterface,
+    @inject(Component.ExceptionFilterInterface) private exceptionFilter: ExceptionFilterInterface,
   ) {
     this.expressApp = express();
   }
@@ -27,6 +29,10 @@ export default class Application {
 
   public registerMiddlewares() {
     this.expressApp.use(express.json());
+  }
+
+  public registerExceptionFilters() {
+    this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
   }
 
   public async init() {
@@ -42,6 +48,7 @@ export default class Application {
     );
 
     await this.databaseClient.connect(uri);
+    this.registerExceptionFilters();
     this.registerMiddlewares();
     this.registerRoutes();
     this.expressApp.listen(this.config.get('PORT'));
